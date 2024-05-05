@@ -46,6 +46,9 @@
 
 (set-face-attribute 'default nil :family "LiterationMono Nerd Font")
 
+;; If your gpu has vsync on or you’re experiencing flickering
+(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+
 (require 'elcord)
 (elcord-mode)
 (require 'nerd-icons)
