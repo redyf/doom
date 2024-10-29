@@ -44,14 +44,32 @@
 
 (setq confirm-kill-emacs nil)
 
-(set-face-attribute 'default nil :family "LiterationMono Nerd Font")
+; Thanks systemcrafters for the amazing emacs playlist!
+(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 140)
+
+(setq inhibit-startup-message t)
+
+(scroll-bar-mode -1) ; Disable visible scrollbar
+(tool-bar-mode -1) ; Disable the toolbar
+(tooltip-mode -1) ; Disable tooltips
+(set-fringe-mode 10) ; Give some breathing room
+;;
+(menu-bar-mode -1) ; Disable the menu bar
 
 ;; If your gpu has vsync on or you’re experiencing flickering
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
+;; Discord rpc
 (require 'elcord)
 (elcord-mode)
+
 (require 'nerd-icons)
+
+;; Optionally, you can also disable arrow keys globally
+(map! :g [up] nil)
+(map! :g [down] nil)
+(map! :g [right] nil)
+(map! :g [left] nil)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
