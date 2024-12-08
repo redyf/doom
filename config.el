@@ -75,43 +75,25 @@
 
 (set-face-attribute 'default nil :font "Berkeley Mono" :height 120)
 
+(setq evil-insert-state-cursor 'bar) ;; bar / box / hollow
+
 (map! :n [tab]   #'next-buffer)
 (map! :n [backtab] #'previous-buffer)
+(map! :n "M-h" #'+vterm/toggle)
 
-;; TODO: Switch tabs with tab
-;; TODO: Baixar key-chord
+(after! which-key
+  (setq which-key-idle-delay 0.01   ; Main delay
+        which-key-idle-secondary-delay 0.05)) ; Secondary delay
+
+(require 'key-chord)
+(use-package! key-chord
+  :defer t
+  :config
+  (key-chord-mode 1)
+  (setq key-chord-one-key-delay 0.2)
+  (setq key-chord-two-keys-delay 0.2)
+  (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
+  (key-chord-define evil-insert-state-map "jk" 'evil-normal-state))
 
 (require 'elcord)
 (elcord-mode)
-
-;; Whenever you reconfigure a package, make sure to wrap your config in an
-;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
-;;
-;;   (after! PACKAGE
-;;     (setq x y))
-;;
-;; The exceptions to this rule:
-;;
-;;   - Setting file/directory variables (like `org-directory')
-;;   - Setting variables which explicitly tell you to set them before their
-;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
-;;   - Setting doom variables (which start with 'doom-' or '+').
-;;
-;; Here are some additional functions/macros that will help you configure Doom.
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
-;; etc).
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.

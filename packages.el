@@ -49,3 +49,4 @@
 ;; (unpin! t)
 
 (package! elcord)
+(package! key-chord)
