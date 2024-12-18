@@ -75,11 +75,26 @@
 
 (set-face-attribute 'default nil :font "Berkeley Mono" :height 120)
 
+;; Improve performance
+;;(setq gc-cons-threshold (* 100 1024 1024))  ; Set to 100 MB
+;;(setq gc-cons-percentage 0.1)
+
+;;(setq comp-deferred-compilation t) ; Enable deferred native compilation
+;;(setq json-parse-maximum-depth 1000) ; Optimize JSON parsing
+
 (setq evil-insert-state-cursor 'bar) ;; bar / box / hollow
 
+;; tab causing issues with lsp
 (map! :n [tab]   #'next-buffer)
 (map! :n [backtab] #'previous-buffer)
 (map! :n "M-h" #'+vterm/toggle)
+
+(after! lsp-mode
+  (setq lsp-idle-delay 0.1)) ; Adjust the delay to 100ms (default is 0.5s)
+
+(after! company
+  (setq company-idle-delay 0.0  ; No delay before suggestions are shown
+        company-minimum-prefix-length 1)) ; Start showing completions after typing one character
 
 (after! which-key
   (setq which-key-idle-delay 0.01   ; Main delay
